@@ -15,6 +15,10 @@ players = pd.read_csv(filepath + 'players.csv')
 plays = pd.read_csv(filepath + 'plays.csv')
 scouting = pd.read_csv(filepath + 'PFFScoutingData.csv')
 
+# there's an error in collegeNames, reading Texas A&M wrong (probably character encoding)
+# fix it first:
+players.loc[players['collegeName'].str.contains('Texas A&amp;M', na=False), 'collegeName'] = 'Texas A&M'
+
 # 1) ADDING # OF PUNTS 
 # isolate the punters
 punters = players[players['Position']=='P']

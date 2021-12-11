@@ -16,6 +16,10 @@ plays = pd.read_csv(filepath + 'plays.csv')
 scouting = pd.read_csv(filepath + 'PFFScoutingData.csv')
 games = pd.read_csv(filepath + 'games.csv')
 
+# there's an error in collegeNames, reading Texas A&M wrong (probably character encoding)
+# fix it first:
+players.loc[players['collegeName'].str.contains('Texas A&amp;M', na=False), 'collegeName'] = 'Texas A&M'
+
 # 1) ADDING NUMBER OF KICKOFFS AND FIELD GOALS
 # isolate kickers
 kickers = players[players["Position"]=="K"]
