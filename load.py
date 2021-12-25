@@ -25,7 +25,7 @@ def loadGames(cur, conn, query):
 
         print(' - loading games')
         for row in games_csv:
-            print(row)
+            # print(row)
             cur.execute(query, row)
 
         print(' - games loaded.')
@@ -47,6 +47,10 @@ def loadPlays(cur, conn, query):
 
         print(' - loading plays')
         for row in plays_csv:
+            for i in range(len(row)):
+                if row[i] == '':
+                    row[i] = None
+            # row = list(map(lambda x: x.replace('', None), row))
             print(row)
             cur.execute(query, row)
 
