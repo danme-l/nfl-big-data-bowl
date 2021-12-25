@@ -1,2 +1,4 @@
 config.ini
 __pycache__
+test
+db_conn_test.py

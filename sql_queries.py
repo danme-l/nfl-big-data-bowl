@@ -7,6 +7,7 @@ create_table_games = ("""
         season smallint,
         week smallint,
         gameDate date,
+        startTimeEastern time,
         homeTeamAbbr varchar(3),
         visitorTeamAbbr varchar(3)
     )
@@ -20,6 +21,7 @@ create_table_players = ("""
         nflId integer PRIMARY KEY,
         height varchar(3),
         weight smallint,
+        birthdate date,
         collegeName varchar(40),
         position varchar(3),
         displayName varchar(25)
@@ -40,9 +42,9 @@ create_table_plays = ("""
         possessionTeam varchar(3),
         specialTeamsPlayType varchar(13),
         specialTeamsResult varchar(21),
-        kickerId integer,
-        returnerId integer,
-        kickBlockerId integer,
+        kickerId decimal,
+        returnerId decimal,
+        kickBlockerId decimal,
         yardlineSide varchar(3),
         yadlineNumber smallint,
         gameclock varchar(8),
@@ -98,6 +100,7 @@ create_table_punters = ("""
         nflId integer PRIMARY KEY,
         height varchar(3),
         weight smallint,
+        birthdate date,
         collegeName varchar(40),
         position varchar(3),
         displayName varchar(25),
@@ -123,6 +126,7 @@ create_table_kickers = ("""
         nflId integer PRIMARY KEY,
         height varchar(3),
         weight smallint,
+        birthdate Date,
         collegeName varchar(40),
         position varchar(3),
         displayName varchar(25),
@@ -161,9 +165,10 @@ games_insert = ("""
         season,
         week,
         gameDate,
+        startTimeEastern,
         homeTeamAbbr,
         visitorTeamAbbr )
-    VALUES (%s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
 """)
 
 players_insert = ("""
@@ -171,14 +176,15 @@ players_insert = ("""
         nflId,
         height,
         weight,
+        birthdate,
         collegeName,
         position,
-        displayName)
-    VALUES (%s, %s, %s, %s, %s, %s)
+        displayName )
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
 """)
 
 plays_insert = ("""
-    INSERT INTO players (
+    INSERT INTO plays (
         gameId,
         playId,
         playDescription,
@@ -203,8 +209,10 @@ plays_insert = ("""
         kickLength,
         kickReturnYardage,
         playResult,
-        absoluteYardlineNumber)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        absoluteYardlineNumber )
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s)
 """)
 
 insert_pffScouting = ("""
@@ -229,7 +237,8 @@ insert_pffScouting = ("""
         specialTeamsSafeties,
         vises,
         kickContactType)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """)
 
 insert_punters = ("""
@@ -238,6 +247,7 @@ insert_punters = ("""
         nflId,
         height,
         weight,
+        birthdate,
         collegeName,
         position,
         displayName,
@@ -251,7 +261,8 @@ insert_punters = ("""
         intendedDirectionRatio,
         meanHangTime,
         maxHangTime)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s)
 """)
 
 insert_kickers = ("""
@@ -260,6 +271,7 @@ insert_kickers = ("""
         nflId,
         height,
         weight,
+        birthdate,
         collegeName,
         position,
         displayName,
@@ -281,5 +293,7 @@ insert_kickers = ("""
         maxKickLength_missed,
         shortestKickLength_missed,
         clutchKicksMissed )
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+            %s, %s, %s, %s, %s, %s)
 """)

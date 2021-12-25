@@ -25,14 +25,11 @@ def createDatabase():
     conn = pg.connect(**pg_params)
     conn.set_session(autocommit=True)
     cur = conn.cursor()
-    print("Got here 1")
 
     # create db
     cur.execute("DROP DATABASE IF EXISTS nflSpecialTeams")
-    print("Got here 2")
     cur.execute("CREATE DATABASE nflSpecialTeams WITH ENCODING 'utf8' TEMPLATE template0")
-
-    print('got here 3')    
+  
     conn.close()
 
     # connect to the nfl database
