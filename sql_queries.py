@@ -1,5 +1,6 @@
+# create and drop table queries
 
-# create tables
+# games
 create_table_games = ("""
     CREATE TABLE IF NOT EXISTS games(
         gameId integer PRIMARY KEY,
@@ -11,6 +12,9 @@ create_table_games = ("""
     )
 """)
 
+drop_table_games = "DROP TABLE IF EXISTS games"
+
+# players
 create_table_players = ("""
     CREATE TABLE IF NOT EXISTS players(
         nflId integer PRIMARY KEY,
@@ -22,6 +26,9 @@ create_table_players = ("""
     )
 """)
 
+drop_table_players = "DROP TABLE IF EXISTS players"
+
+# plays
 create_table_plays = ("""
     CREATE TABLE IF NOT EXISTS plays(
         gameId integer,
@@ -53,8 +60,11 @@ create_table_plays = ("""
     )
 """)
 
+drop_table_plays = "DROP TABLE IF EXISTS plays"
+
+# pffscouting
 create_table_PFFscouting = ("""
-CREATE TABLE IF NOT EXISTS pffScouting(
+    CREATE TABLE IF NOT EXISTS pffScouting(
         gameId integer,
         playId integer,
         snapDetail varchar(3),
@@ -79,7 +89,9 @@ CREATE TABLE IF NOT EXISTS pffScouting(
     )
 """)
 
+drop_table_pffScouting = "DROP TABLE IF EXISTS pffScouting"
 
+# punters
 create_table_punters = ("""
     CREATE TABLE IF NOT EXISTS punters(
         dummyIndex smallint,
@@ -102,6 +114,9 @@ create_table_punters = ("""
     )
 """)
 
+drop_table_punters = "DROP TABLE IF EXISTS punters"
+
+# kickers
 create_table_kickers = ("""
     CREATE TABLE IF NOT EXISTS kickers(
         dummyIndex smallint,
@@ -131,6 +146,12 @@ create_table_kickers = ("""
         clutchKicksMissed smallint
     )
 """)
+
+drop_table_kickers = "DROP TABLE IF EXISTS kickers"
+
+# list of create table queries to iterate over 
+create_tables = [create_table_games, create_table_PFFscouting, create_table_kickers, create_table_players, create_table_plays, create_table_punters]
+drop_tables = [drop_table_plays, drop_table_pffScouting, drop_table_games, drop_table_kickers, drop_table_plays, drop_table_punters]
 
 # insert records
 
