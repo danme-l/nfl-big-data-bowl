@@ -178,18 +178,13 @@ def test():
     
     try:
         print("Connecting ... ")
-        
-        games = pd.read_csv(data_path + 'games.csv')        
-        connection_info = 'postgresql+psycopg2://'+nfl_params['user']+':'+nfl_params['password']+'@'+nfl_params['host']+':'+nfl_params['port']+'/'+nfl_params['database']
-        engine = create_engine(connection_info)
+        conn = pg.connect(**nfl_params)
+        cur = conn.cursor()
 
-        games.to_sql('games',con=engine, if_exists='replace')
-        engine.execute(games_insert)        
+        cur.execute("SELECT * FROM information_schema.tables")
+        print(cur.fetchone())
 
-        sample = engine.fetchall()
-        print(sample)
         conn.close()
-
 
     finally:
         if conn is not None:
@@ -229,8 +224,8 @@ def main():
         
         conn.close()
     
-    # except (Exception, pg.DatabaseError) as error:
-    #     print(error)
+    except (Exception, pg.DatabaseError) as error:
+        print(error)
 
     finally: 
         if conn is not None:
