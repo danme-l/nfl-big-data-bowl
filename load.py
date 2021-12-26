@@ -47,10 +47,18 @@ def loadPlays(cur, conn, query):
 
         print(' - loading plays')
         for row in plays_csv:
+
+            # converting nulls to None
             for i in range(len(row)):
                 if row[i] == '':
                     row[i] = None
-            # row = list(map(lambda x: x.replace('', None), row))
+
+            # skipping rows with more than one returner
+            # alternatives to make returnerId a string or add extra columns with second and third returners, for which all records but 8 will be nulls
+            if row[10] is not None:
+                if ';' in row[10]:
+                    continue
+            
             print(row)
             cur.execute(query, row)
 
@@ -73,6 +81,10 @@ def loadPlayers(cur, conn, query):
 
         print(' - loading players')
         for row in players_csv:
+            # converting nulls to None
+            for i in range(len(row)):
+                if row[i] == '':
+                    row[i] = None
             print(row)
             cur.execute(query, row)
 
@@ -95,6 +107,10 @@ def loadPunters(cur, conn, query):
 
         print(' - loading punters')
         for row in punters_csv:
+            # converting nulls to None
+            for i in range(len(row)):
+                if row[i] == '':
+                    row[i] = None
             print(row)
             cur.execute(query, row)
 
@@ -117,6 +133,10 @@ def loadKickers(cur, conn, query):
 
         print(' - loading kickers')
         for row in kickers_csv:
+            # converting nulls to None
+            for i in range(len(row)):
+                if row[i] == '':
+                    row[i] = None
             print(row)
             cur.execute(query, row)
 
@@ -139,6 +159,10 @@ def loadPFFScouting(cur, conn, query):
 
         print(' - loading PFF Scouting')
         for row in scouting_csv:
+            # converting nulls to None
+            for i in range(len(row)):
+                if row[i] == '':
+                    row[i] = None
             print(row)
             cur.execute(query, row)
 
@@ -205,8 +229,8 @@ def main():
         
         conn.close()
     
-    except (Exception, pg.DatabaseError) as error:
-        print(error)
+    # except (Exception, pg.DatabaseError) as error:
+    #     print(error)
 
     finally: 
         if conn is not None:

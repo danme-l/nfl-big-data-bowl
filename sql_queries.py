@@ -19,12 +19,12 @@ drop_table_games = "DROP TABLE IF EXISTS games"
 create_table_players = ("""
     CREATE TABLE IF NOT EXISTS players(
         nflId integer PRIMARY KEY,
-        height varchar(3),
+        height varchar(4),
         weight smallint,
-        birthdate date,
+        birthDate date,
         collegeName varchar(40),
         position varchar(3),
-        displayName varchar(25)
+        displayName varchar(27)
     )
 """)
 
@@ -98,13 +98,13 @@ create_table_punters = ("""
     CREATE TABLE IF NOT EXISTS punters(
         dummyIndex smallint,
         nflId integer PRIMARY KEY,
-        height varchar(3),
+        height varchar(4),
         weight smallint,
-        birthdate date,
+        birthDate date,
         collegeName varchar(40),
         position varchar(3),
-        displayName varchar(25),
-        num_punts smallint,
+        displayName varchar(27),
+        num_punts decimal,
         normalPuntRatio decimal,
         caughtRatio decimal,
         groundRatio decimal,
@@ -124,14 +124,14 @@ create_table_kickers = ("""
     CREATE TABLE IF NOT EXISTS kickers(
         dummyIndex smallint,
         nflId integer PRIMARY KEY,
-        height varchar(3),
+        height varchar(4),
         weight smallint,
-        birthdate Date,
+        birthDate date,
         collegeName varchar(40),
         position varchar(3),
-        displayName varchar(25),
-        num_kickoffs smallint,
-        num_field_goals smallint,
+        displayName varchar(27),
+        num_kickoffs decimal,
+        num_field_goals decimal,
         meanKickoffDistance decimal,
         maxKickoffDistance decimal,
         meanKickoffHangtime decimal,
@@ -143,11 +143,11 @@ create_table_kickers = ("""
         onsideRecoveryRate decimal,
         meanKickLength_hit decimal,
         maxKickLength_hit decimal,
-        clutchKicksMade smallint,
+        clutchKicksMade decimal,
         meanKickLength_missed decimal,
         maxKickLength_missed decimal,
         shortestKickLength_missed decimal,
-        clutchKicksMissed smallint
+        clutchKicksMissed decimal
     )
 """)
 
@@ -155,7 +155,7 @@ drop_table_kickers = "DROP TABLE IF EXISTS kickers"
 
 # list of create table queries to iterate over 
 create_tables = [create_table_games, create_table_PFFscouting, create_table_kickers, create_table_players, create_table_plays, create_table_punters]
-drop_tables = [drop_table_plays, drop_table_pffScouting, drop_table_games, drop_table_kickers, drop_table_plays, drop_table_punters]
+drop_tables = [drop_table_players, drop_table_pffScouting, drop_table_games, drop_table_kickers, drop_table_plays, drop_table_punters]
 
 # insert records
 
@@ -176,7 +176,7 @@ players_insert = ("""
         nflId,
         height,
         weight,
-        birthdate,
+        birthDate,
         collegeName,
         position,
         displayName )
@@ -247,7 +247,7 @@ insert_punters = ("""
         nflId,
         height,
         weight,
-        birthdate,
+        birthDate,
         collegeName,
         position,
         displayName,
@@ -271,7 +271,7 @@ insert_kickers = ("""
         nflId,
         height,
         weight,
-        birthdate,
+        birthDate,
         collegeName,
         position,
         displayName,
@@ -288,7 +288,7 @@ insert_kickers = ("""
         onsideRecoveryRate,
         meanKickLength_hit,
         maxKickLength_hit,
-        clutchKicksMadet,
+        clutchKicksMade,
         meanKickLength_missed,
         maxKickLength_missed,
         shortestKickLength_missed,

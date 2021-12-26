@@ -63,12 +63,12 @@ def main():
     """
     conn = None
     try: 
-        print("Create Database...")
+        print("Creating the Database...")
         cur, conn = createDatabase()
         
         dropTables(cur, conn)
 
-        print("Populating...")
+        print("Building tables...")
         createTables(cur, conn)
 
         conn.close()
